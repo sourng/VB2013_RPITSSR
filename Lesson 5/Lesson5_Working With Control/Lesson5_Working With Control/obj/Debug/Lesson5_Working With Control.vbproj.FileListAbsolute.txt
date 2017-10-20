@@ -1,0 +1,10 @@
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\bin\Debug\Lesson5_Working With Control.exe.config
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\bin\Debug\Lesson5_Working With Control.exe
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\bin\Debug\Lesson5_Working With Control.pdb
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\bin\Debug\Lesson5_Working With Control.xml
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\obj\Debug\Lesson5_Working_With_Control.Form1.resources
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\obj\Debug\Lesson5_Working_With_Control.Resources.resources
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\obj\Debug\Lesson5_Working With Control.vbproj.GenerateResource.Cache
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\obj\Debug\Lesson5_Working With Control.exe
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\obj\Debug\Lesson5_Working With Control.xml
+D:\Personal Development\Examples\VB2013_RPITSSR\Lesson 5\Lesson5_Working With Control\Lesson5_Working With Control\obj\Debug\Lesson5_Working With Control.pdb
