@@ -10,7 +10,6 @@
         ' ListPorducts.Items.Remove(ListPorducts.SelectedItem)
     
         If ListPorducts.SelectedItems.Count > 0 Then
-
             ' MUST loop backwards thru collections when removing
             ' or you will remove the wrong things, miss stuff and
             ' run out early
