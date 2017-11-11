@@ -28,6 +28,9 @@ Partial Class Form1
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnRemove = New System.Windows.Forms.Button()
         Me.btnClear = New System.Windows.Forms.Button()
+        Me.cboProduct = New System.Windows.Forms.ComboBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ListPorducts
@@ -86,11 +89,41 @@ Partial Class Form1
         Me.btnClear.Text = "Clear"
         Me.btnClear.UseVisualStyleBackColor = True
         '
+        'cboProduct
+        '
+        Me.cboProduct.FormattingEnabled = True
+        Me.cboProduct.ItemHeight = 13
+        Me.cboProduct.Location = New System.Drawing.Point(203, 166)
+        Me.cboProduct.Name = "cboProduct"
+        Me.cboProduct.Size = New System.Drawing.Size(246, 21)
+        Me.cboProduct.TabIndex = 6
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(269, 216)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(97, 26)
+        Me.Button1.TabIndex = 7
+        Me.Button1.Text = "Add to Combo"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(269, 256)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(96, 34)
+        Me.Button2.TabIndex = 8
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(479, 345)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.cboProduct)
         Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnRemove)
         Me.Controls.Add(Me.btnAdd)
@@ -109,5 +142,8 @@ Partial Class Form1
     Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents btnRemove As System.Windows.Forms.Button
     Friend WithEvents btnClear As System.Windows.Forms.Button
+    Friend WithEvents cboProduct As System.Windows.Forms.ComboBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 
 End Class

@@ -23,4 +23,18 @@
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         ListPorducts.Items.Clear()
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Me.cboProduct.Items.Add(Me.txtProductName.Text)
+        'NameOfCombobox.Items.Add(Value)
+        'NameOfCombobox.Items.Add("Female")
+        'NameOfCombobox.Items.Add(2)
+
+
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        MsgBox(cboProduct.Text)
+    End Sub
 End Class
