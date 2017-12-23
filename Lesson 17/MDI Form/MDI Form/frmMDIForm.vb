@@ -89,4 +89,9 @@ Public Class frmMDIForm
         Me.lbl_user.Text = UserName
         Me.lbl_Email.Text = user_email
     End Sub
+
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        Form1.Show()
+
+    End Sub
 End Class

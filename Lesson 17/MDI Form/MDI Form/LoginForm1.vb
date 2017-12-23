@@ -28,7 +28,6 @@ Public Class frmLogin
         Try
             If txtUserName.Text = "" And txtPassword.Text = "" Then
                 MsgBox("Password or Username Incorrect!")
-
             Else
                 sql = "select * from tbl_users where Email ='" & txtUserName.Text & "' and Pass = '" & txtPassword.Text & "'"
                 'bind the connection and query

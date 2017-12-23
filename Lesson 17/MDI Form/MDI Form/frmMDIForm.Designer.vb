@@ -74,13 +74,13 @@ Partial Class frmMDIForm
         Me.PrintPreviewToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.HelpToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
+        Me.StatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lbl_Email = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lbl_user = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -446,21 +446,6 @@ Partial Class frmMDIForm
         Me.HelpToolStripButton.Text = "Help"
         Me.HelpToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'StatusStrip
-        '
-        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel, Me.lbl_Email, Me.lbl_user})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 431)
-        Me.StatusStrip.Name = "StatusStrip"
-        Me.StatusStrip.Size = New System.Drawing.Size(632, 22)
-        Me.StatusStrip.TabIndex = 7
-        Me.StatusStrip.Text = "StatusStrip"
-        '
-        'ToolStripStatusLabel
-        '
-        Me.ToolStripStatusLabel.Name = "ToolStripStatusLabel"
-        Me.ToolStripStatusLabel.Size = New System.Drawing.Size(39, 17)
-        Me.ToolStripStatusLabel.Text = "Status"
-        '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
@@ -476,6 +461,21 @@ Partial Class frmMDIForm
         Me.ToolStripButton1.Text = "Users"
         Me.ToolStripButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.ToolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'StatusStrip
+        '
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel, Me.lbl_Email, Me.lbl_user})
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 431)
+        Me.StatusStrip.Name = "StatusStrip"
+        Me.StatusStrip.Size = New System.Drawing.Size(632, 22)
+        Me.StatusStrip.TabIndex = 7
+        Me.StatusStrip.Text = "StatusStrip"
+        '
+        'ToolStripStatusLabel
+        '
+        Me.ToolStripStatusLabel.Name = "ToolStripStatusLabel"
+        Me.ToolStripStatusLabel.Size = New System.Drawing.Size(39, 17)
+        Me.ToolStripStatusLabel.Text = "Status"
         '
         'lbl_Email
         '
