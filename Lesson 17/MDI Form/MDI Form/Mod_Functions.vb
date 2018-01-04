@@ -2,7 +2,7 @@
 
 Module Mod_Functions
     Public MysqlConn As New MySqlConnection
-
+	
     Public user_type, UserName, user_email As String
     Public Sub ConnectDB()
 

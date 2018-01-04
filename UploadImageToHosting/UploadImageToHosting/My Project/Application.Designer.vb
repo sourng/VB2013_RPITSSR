@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.MDI_Form.frmLogin
+            Me.MainForm = Global.UploadImageToHosting.Form1
         End Sub
     End Class
 End Namespace
