@@ -1,0 +1,318 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fprq1\fcharset0 Courier New;}{\f1\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;\red0\green128\blue0;\red163\green21\blue21;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\cf1\f0\fs20 Option\cf0  \cf1 Explicit\cf0  \cf1 On\par
+Imports\cf0  System.IO \cf2 ' for filestream functionality\par
+\par
+\cf1 Public\cf0  \cf1 Class\cf0  Form1\par
+    \cf1 Dim\cf0  m_PanStartPoint \cf1 As\cf0  \cf1 New\cf0  Point \cf2 'for Pan Function\par
+\cf0     \cf1 Dim\cf0  DrawRectangle \cf1 As\cf0  \cf1 Boolean\cf0  = \cf1 False\cf0  \cf2 'for draw rectangle function\par
+\cf0     \cf1 Dim\cf0  rect \cf1 As\cf0  Rectangle \cf2 'for draw rectangle function\par
+\cf0     \cf1 Dim\cf0  DrawRectangle_Mouse_X_Start \cf1 As\cf0  \cf1 Integer\cf0  \cf2 'for draw rectangle function\par
+\cf0     \cf1 Dim\cf0  DrawRectangle_Mouse_Y_Start \cf1 As\cf0  \cf1 Integer\cf0  \cf2 'for draw rectangle function\par
+\cf0     \cf1 Dim\cf0  DrawRectangle_Mouse_X_End \cf1 As\cf0  \cf1 Integer\cf0  \cf2 'for draw rectangle function\par
+\cf0     \cf1 Dim\cf0  DrawRectangle_Mouse_Y_End \cf1 As\cf0  \cf1 Integer\cf0  \cf2 'for draw rectangle function\par
+\cf0     \cf1 Dim\cf0  currentfilename \cf1 As\cf0  \cf1 String\cf0  = \cf1 Nothing\cf0  \cf2 'copy of current image filename\par
+\cf0     \cf1 Dim\cf0  original \cf1 As\cf0  Image = \cf1 Nothing\cf0  \cf2 'original image used for zoom feature\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  ResetToolStripMenuItem1_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                              \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                              ResetToolStripMenuItem1.Click\par
+        PanToolStripMenuItem1.Checked = \cf1 False\par
+\cf0         SelectToolStripMenuItem1.Checked = \cf1 False\par
+\cf0         Pic.Cursor = Cursors.Default\par
+        \cf1 If\cf0  \cf1 Not\cf0  (Pic.Image \cf1 Is\cf0  \cf1 Nothing\cf0 ) \cf1 Then\par
+\cf0             Pic.Image.Dispose()\par
+            Pic.Image = \cf1 Nothing\par
+\cf0             \cf1 Dim\cf0  fs \cf1 As\cf0  FileStream\par
+            fs = \cf1 New\cf0  FileStream(currentfilename, IO.FileMode.Open, IO.FileAccess.Read)\par
+            Pic.Image = Image.FromStream(fs)\par
+            fs.Close()\par
+            original = Pic.Image\par
+            resetmenus()\par
+            set_zoom100_checked()\par
+        \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  LoadToolStripMenuItem1_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                             \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                             LoadToolStripMenuItem1.Click\par
+        \cf1 Dim\cf0  fs \cf1 As\cf0  FileStream\par
+\par
+        OpenFileDialog1.Filter = \cf3 "JPG files (*.jpg)|*.jpg|"\cf0  & \cf3 "BMP Files (*.bmp)|*.bmp|"\cf0  _\par
+        & \cf3 "TIF Files (*.tif)|*.tif|"\cf0  & \cf3 "PNG Files (*.png)|*.png|"\cf0  & \cf3 "ALL Files (*.*)|*.*"\par
+\cf0         OpenFileDialog1.Title = \cf3 "Select an Image File"\par
+\cf0         \cf1 If\cf0  OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK \cf1 Then\par
+\cf0             currentfilename = OpenFileDialog1.FileName\par
+            \cf1 If\cf0  currentfilename.ToUpper.EndsWith(\cf3 ".JPG"\cf0 ) \cf1 Or\cf0  _\par
+            currentfilename.ToUpper.EndsWith(\cf3 ".BMP"\cf0 ) \cf1 Or\cf0  _\par
+            currentfilename.ToUpper.EndsWith(\cf3 ".TIF"\cf0 ) \cf1 Or\cf0  _\par
+            currentfilename.ToUpper.EndsWith(\cf3 ".PNG"\cf0 ) \cf1 Then\par
+\cf0                 \cf1 If\cf0  \cf1 Not\cf0  (Pic.Image \cf1 Is\cf0  \cf1 Nothing\cf0 ) \cf1 Then\par
+\cf0                     Pic.Image.Dispose()\par
+                    Pic.Image = \cf1 Nothing\par
+\cf0                 \cf1 End\cf0  \cf1 If\par
+\cf0                 fs = \cf1 New\cf0  FileStream(currentfilename, IO.FileMode.Open, IO.FileAccess.Read)\par
+                Pic.Image = Image.FromStream(fs)\par
+                fs.Close()\par
+                original = Pic.Image\par
+                resetmenus()\par
+                set_zoom100_checked()\par
+            \cf1 End\cf0  \cf1 If\par
+\cf0         \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  resetmenus()\par
+        Pic.Cursor = Cursors.Default\par
+        CopyToolStripMenuItem1.Enabled = \cf1 False\par
+\cf0         PanToolStripMenuItem1.Enabled = \cf1 True\par
+\cf0         PanToolStripMenuItem1.Checked = \cf1 False\par
+\cf0         PrintToolStripMenuItem1.Enabled = \cf1 False\par
+\cf0         ResetToolStripMenuItem1.Enabled = \cf1 True\par
+\cf0         RotateToolStripMenuItem1.Enabled = \cf1 True\par
+\cf0         SelectToolStripMenuItem1.Enabled = \cf1 True\par
+\cf0         SelectToolStripMenuItem1.Checked = \cf1 False\par
+\cf0         ZoomToolStripMenuItem1.Enabled = \cf1 True\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  set_zoom100_checked()\par
+        Zoom200ToolStripMenuItem1.Checked = \cf1 False\par
+\cf0         Zoom100ToolStripMenuItem2.Checked = \cf1 True\par
+\cf0         Zoom75ToolStripMenuItem3.Checked = \cf1 False\par
+\cf0         Zoom50ToolStripMenuItem4.Checked = \cf1 False\par
+\cf0         Zoom25ToolStripMenuItem5.Checked = \cf1 False\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  Pic_MouseDown(\cf1 ByVal\cf0  sender \cf1 As\cf0  \cf1 Object\cf0 , _\par
+                              \cf1 ByVal\cf0  e \cf1 As\cf0  System.Windows.Forms.MouseEventArgs) \cf1 Handles\cf0  _\par
+                              Pic.MouseDown\par
+        \cf1 If\cf0  Pic.Cursor = Cursors.Cross \cf1 Then\par
+\cf0             DrawRectangle = \cf1 True\par
+\cf0             DrawRectangle_Mouse_X_Start = e.Location.X\par
+            DrawRectangle_Mouse_Y_Start = e.Location.Y\par
+            DrawRectangle_Mouse_X_End = e.Location.X + 1\par
+            DrawRectangle_Mouse_Y_End = e.Location.Y + 1\par
+        \cf1 End\cf0  \cf1 If\par
+\cf0         \cf1 If\cf0  Pic.Cursor = Cursors.Hand \cf1 Then\par
+\cf0             \cf2 'Capture the initial location of mouse\par
+\cf0             m_PanStartPoint = \cf1 New\cf0  Point(e.X, e.Y)\par
+        \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  Pic_MouseMove(\cf1 ByVal\cf0  sender \cf1 As\cf0  \cf1 Object\cf0 , _\par
+                              \cf1 ByVal\cf0  e \cf1 As\cf0  System.Windows.Forms.MouseEventArgs) \cf1 Handles\cf0  _\par
+                              Pic.MouseMove\par
+        \cf2 'Verify Left Button is pressed while the mouse is moving.  This draws the rectangle for selection\par
+\cf0         \cf1 If\cf0  Pic.Cursor = Cursors.Cross \cf1 AndAlso\cf0  e.Button = Windows.Forms.MouseButtons.Left \cf1 Then\par
+\cf0             DrawRectangle_Mouse_X_End = e.Location.X\par
+            DrawRectangle_Mouse_Y_End = e.Location.Y\par
+            Pic.Refresh()\par
+            \cf2 'Verify Left Button is pressed while the mouse is moving.  This pans the image\par
+\cf0         \cf1 End\cf0  \cf1 If\par
+\cf0         \cf1 If\cf0  Pic.Cursor = Cursors.Hand \cf1 AndAlso\cf0  e.Button = Windows.Forms.MouseButtons.Left \cf1 Then\par
+\cf0             \cf2 'Here we get the change in coordinates.\par
+\cf0             \cf1 Dim\cf0  DeltaX \cf1 As\cf0  \cf1 Integer\cf0  = (m_PanStartPoint.X - e.X)\par
+            \cf1 Dim\cf0  DeltaY \cf1 As\cf0  \cf1 Integer\cf0  = (m_PanStartPoint.Y - e.Y)\par
+            \cf2 'Then we set the new autoscroll position.\par
+\cf0             \cf2 'ALWAYS pass positive integers to the panels autoScrollPosition method\par
+\cf0             Panel1.AutoScrollPosition = _\par
+            \cf1 New\cf0  Drawing.Point((DeltaX - Panel1.AutoScrollPosition.X), _\par
+                            (DeltaY - Panel1.AutoScrollPosition.Y))\par
+        \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\cf0     \cf1 Private\cf0  \cf1 Function\cf0  CropBitmap(\cf1 ByVal\cf0  srcBitmap \cf1 As\cf0  Bitmap, _\par
+     \cf1 ByVal\cf0  cropX \cf1 As\cf0  \cf1 Integer\cf0 , \cf1 ByVal\cf0  cropY \cf1 As\cf0  \cf1 Integer\cf0 , \cf1 ByVal\cf0  cropWidth \cf1 As\cf0  \cf1 Integer\cf0 , _\par
+     \cf1 ByVal\cf0  cropHeight \cf1 As\cf0  \cf1 Integer\cf0 ) \cf1 As\cf0  Bitmap\par
+        \cf2 '\par
+\cf0         \cf2 ' Create the new bitmap and associated graphics object\par
+\cf0         \cf1 Dim\cf0  bmp \cf1 As\cf0  \cf1 New\cf0  Bitmap(cropWidth, cropHeight)\par
+\par
+        \cf1 Dim\cf0  g \cf1 As\cf0  Graphics = Graphics.FromImage(bmp)\par
+        \cf2 ' Draw the specified section of the source bitmap to the new one\par
+\cf0         g.DrawImage(srcBitmap, \cf1 New\cf0  Rectangle(0, 0, cropWidth, cropHeight), _\par
+                    cropX, cropY, cropWidth, cropHeight, GraphicsUnit.Pixel)\par
+        \cf2 ' Clean up\par
+\cf0         g.Dispose()\par
+\par
+        \cf2 ' Return the bitmap\par
+\cf0         \cf1 Return\cf0  bmp\par
+\par
+    \cf1 End\cf0  \cf1 Function\cf0  \cf2 'Copy\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  CopyToolStripMenuItem1_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                             \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                             CopyToolStripMenuItem1.Click\par
+        \cf2 ' Check to see if user was drawing rectangle and copy it to clipboard\par
+\cf0         \cf1 If\cf0  DrawRectangle \cf1 Then\par
+\cf0             \cf1 Dim\cf0  oldimage \cf1 As\cf0  Bitmap = Pic.Image\par
+            \cf1 Dim\cf0  adjustedimage \cf1 As\cf0  Bitmap\par
+            adjustedimage = CropBitmap(oldimage, rect.X, rect.Y, rect.Width, rect.Height)\par
+            \cf1 Try\par
+\cf0                 Clipboard.SetImage(adjustedimage)\par
+            \cf1 Catch\cf0  ex \cf1 As\cf0  Exception\par
+            \cf1 End\cf0  \cf1 Try\par
+\cf0         \cf1 End\cf0  \cf1 If\par
+\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  pic_Paint(\cf1 ByVal\cf0  sender \cf1 As\cf0  \cf1 Object\cf0 , _\par
+                          \cf1 ByVal\cf0  e \cf1 As\cf0  System.Windows.Forms.PaintEventArgs) \cf1 Handles\cf0  Pic.Paint\par
+        \cf1 If\cf0  DrawRectangle \cf1 Then\par
+\cf0             \cf1 Dim\cf0  mousex \cf1 As\cf0  \cf1 Integer\cf0  = DrawRectangle_Mouse_X_End - DrawRectangle_Mouse_X_Start\par
+            \cf1 Dim\cf0  mousey \cf1 As\cf0  \cf1 Integer\cf0  = DrawRectangle_Mouse_Y_End - DrawRectangle_Mouse_Y_Start\par
+            \cf2 ' Up and Left\par
+\cf0             \cf1 If\cf0  mousex < 0 \cf1 AndAlso\cf0  mousey < 0 \cf1 Then\par
+\cf0                 rect = \cf1 New\cf0  Rectangle((\cf1 New\cf0  Point(DrawRectangle_Mouse_X_End, DrawRectangle_Mouse_Y_End)), _\par
+                                         \cf1 New\cf0  Size(System.Math.Abs(mousex), System.Math.Abs(mousey)))\par
+            \cf1 End\cf0  \cf1 If\par
+\cf0             \cf2 'Down and Right\par
+\cf0             \cf1 If\cf0  mousex > 0 \cf1 AndAlso\cf0  mousey > 0 \cf1 Then\par
+\cf0                 rect = \cf1 New\cf0  Rectangle((\cf1 New\cf0  Point(DrawRectangle_Mouse_X_Start, DrawRectangle_Mouse_Y_Start)), _\par
+                                                     \cf1 New\cf0  Size((mousex), (mousey)))\par
+            \cf1 End\cf0  \cf1 If\par
+\cf0             \cf2 'Up and Right\par
+\cf0             \cf1 If\cf0  mousex < 0 \cf1 AndAlso\cf0  mousey > 0 \cf1 Then\par
+\cf0                 rect = \cf1 New\cf0  Rectangle((\cf1 New\cf0  Point(DrawRectangle_Mouse_X_End, DrawRectangle_Mouse_Y_Start)), _\par
+                                         \cf1 New\cf0  Size(System.Math.Abs(mousex), mousey))\par
+            \cf1 End\cf0  \cf1 If\par
+\cf0             \cf2 'Down and Left\par
+\cf0             \cf1 If\cf0  mousex > 0 \cf1 AndAlso\cf0  mousey < 0 \cf1 Then\par
+\cf0                 rect = \cf1 New\cf0  Rectangle((\cf1 New\cf0  Point(DrawRectangle_Mouse_X_Start, DrawRectangle_Mouse_Y_End)), _\par
+                                         \cf1 New\cf0  Size(mousex, System.Math.Abs(mousey)))\par
+            \cf1 End\cf0  \cf1 If\par
+\cf0             \cf1 Try\par
+\cf0                 e.Graphics.DrawRectangle(Pens.Red, rect)\par
+            \cf1 Catch\cf0  ex \cf1 As\cf0  Exception\par
+            \cf1 End\cf0  \cf1 Try\par
+\cf0         \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  PanToolStripMenuItem1_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                            \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                            PanToolStripMenuItem1.Click\par
+        \cf1 If\cf0  PanToolStripMenuItem1.Checked = \cf1 True\cf0  \cf1 Then\par
+\cf0             PanToolStripMenuItem1.Checked = \cf1 False\par
+\cf0             Pic.Cursor = Cursors.Default\par
+        \cf1 Else\par
+\cf0             PanToolStripMenuItem1.Checked = \cf1 True\par
+\cf0             SelectToolStripMenuItem1.Checked = \cf1 False\par
+\cf0             CopyToolStripMenuItem1.Enabled = \cf1 False\par
+\cf0             PrintToolStripMenuItem1.Enabled = \cf1 False\par
+\cf0             DrawRectangle = \cf1 False\par
+\cf0             Pic.Invalidate()\par
+            Pic.Cursor = Cursors.Hand\par
+        \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  SelectToolStripMenuItem1_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                               \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                               SelectToolStripMenuItem1.Click\par
+        \cf1 If\cf0  SelectToolStripMenuItem1.Checked = \cf1 True\cf0  \cf1 Then\par
+\cf0             SelectToolStripMenuItem1.Checked = \cf1 False\par
+\cf0             CopyToolStripMenuItem1.Enabled = \cf1 False\par
+\cf0             PrintToolStripMenuItem1.Enabled = \cf1 False\par
+\cf0             DrawRectangle = \cf1 False\par
+\cf0             Pic.Invalidate()\par
+            Pic.Cursor = Cursors.Default\par
+        \cf1 Else\par
+\cf0             SelectToolStripMenuItem1.Checked = \cf1 True\par
+\cf0             PanToolStripMenuItem1.Checked = \cf1 False\par
+\cf0             CopyToolStripMenuItem1.Enabled = \cf1 True\par
+\cf0             PrintToolStripMenuItem1.Enabled = \cf1 True\par
+\cf0             Pic.Cursor = Cursors.Cross\par
+        \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  RotateToolStripMenuItem1_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                               \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                               RotateToolStripMenuItem1.Click\par
+        \cf1 If\cf0  \cf1 Not\cf0  (Pic.Image \cf1 Is\cf0  \cf1 Nothing\cf0 ) \cf1 Then\par
+\cf0             \cf1 Dim\cf0  img \cf1 As\cf0  Image = Pic.Image\par
+            img.RotateFlip(RotateFlipType.Rotate90FlipNone)\par
+            Pic.Image = img\par
+        \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Public\cf0  \cf1 Sub\cf0  ZoomImage(\cf1 ByRef\cf0  ZoomValue \cf1 As\cf0  Int32)\par
+        \cf2 'Check to see if there is a valid image\par
+\cf0         \cf1 If\cf0  original \cf1 Is\cf0  \cf1 Nothing\cf0  \cf1 Then\par
+\cf0             \cf1 Exit\cf0  \cf1 Sub\par
+\cf0         \cf1 End\cf0  \cf1 If\par
+\cf0         \cf2 'Create a new image based on the zoom parameters we require\par
+\cf0         \cf1 Dim\cf0  zoomImage \cf1 As\cf0  \cf1 New\cf0  Bitmap(original, _\par
+            (Convert.ToInt32(original.Width * (ZoomValue) / 100)), _\par
+            (Convert.ToInt32(original.Height * (ZoomValue / 100))))\par
+\par
+        \cf2 'Create a new graphics object based on the new image\par
+\cf0         \cf1 Dim\cf0  converted \cf1 As\cf0  Graphics = Graphics.FromImage(zoomImage)\par
+\par
+        \cf2 'Clean up the image\par
+\cf0         converted.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic\par
+\par
+        \cf2 'Clear out the original image\par
+\cf0         Pic.Image = \cf1 Nothing\par
+\par
+\cf0         \cf2 'Display the new "zoomed" image\par
+\cf0         Pic.Image = zoomImage\par
+\par
+    \cf1 End\cf0  \cf1 Sub\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  ZoomFactor_clicked(\cf1 ByVal\cf0  sender \cf1 As\cf0  \cf1 Object\cf0 , \cf1 ByVal\cf0  e \cf1 As\cf0   _\par
+                                       System.Windows.Forms.ToolStripItemClickedEventArgs) _\par
+                                       \cf1 Handles\cf0  ZoomToolStripMenuItem1.DropDownItemClicked\par
+        \cf1 For\cf0  \cf1 Each\cf0  item \cf1 As\cf0  ToolStripMenuItem \cf1 In\cf0  ZoomToolStripMenuItem1.DropDownItems\par
+            item.Checked = \cf1 False\par
+\cf0         \cf1 Next\par
+\cf0         \cf1 DirectCast\cf0 (e.ClickedItem, ToolStripMenuItem).Checked = \cf1 True\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\par
+\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  Zoom200ToolStripMenuItem1_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                                \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                                Zoom200ToolStripMenuItem1.Click\par
+        ZoomImage(200)\par
+    \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  Zoom100ToolStripMenuItem2_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                                \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                                Zoom100ToolStripMenuItem2.Click\par
+        ZoomImage(100)\par
+    \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  Zoom75ToolStripMenuItem3_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                               \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                               Zoom75ToolStripMenuItem3.Click\par
+        ZoomImage(75)\par
+    \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  Zoom50ToolStripMenuItem4_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                               \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                               Zoom50ToolStripMenuItem4.Click\par
+        ZoomImage(50)\par
+    \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  Zoom25ToolStripMenuItem5_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                               \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                               Zoom25ToolStripMenuItem5.Click\par
+        ZoomImage(25)\par
+    \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  PrintToolStripMenuItem1_Click(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                              \cf1 ByVal\cf0  e \cf1 As\cf0  System.EventArgs) \cf1 Handles\cf0  _\par
+                                              PrintToolStripMenuItem1.Click\par
+        \cf1 If\cf0  DrawRectangle \cf1 Then\par
+\cf0             PrintDocument1.Print()\par
+        \cf1 End\cf0  \cf1 If\par
+\cf0     \cf1 End\cf0  \cf1 Sub\par
+\par
+\cf0     \cf1 Private\cf0  \cf1 Sub\cf0  PrintDocument1_PrintPage(\cf1 ByVal\cf0  sender \cf1 As\cf0  System.Object, _\par
+                                         \cf1 ByVal\cf0  e \cf1 As\cf0  System.Drawing.Printing.PrintPageEventArgs) \cf1 Handles\cf0  _\par
+                                         PrintDocument1.PrintPage\par
+        \cf1 Dim\cf0  oldimage \cf1 As\cf0  Bitmap = Pic.Image\par
+        \cf1 Dim\cf0  adjustedimage \cf1 As\cf0  Bitmap\par
+        adjustedimage = CropBitmap(oldimage, rect.X, rect.Y, rect.Width, rect.Height)\par
+        \cf1 Try\par
+\cf0             Clipboard.SetImage(adjustedimage)\par
+        \cf1 Catch\cf0  ex \cf1 As\cf0  Exception\par
+        \cf1 End\cf0  \cf1 Try\par
+\cf0         e.Graphics.DrawImage(Clipboard.GetImage, 0, 0)\par
+    \cf1 End\cf0  \cf1 Sub\par
+\par
+End\cf0  \cf1 Class\par
+\cf0\lang9\f1\fs22\par
+}
+ 
